@@ -11,4 +11,4 @@
 - `-h` — Print the synopsis to standard output and exit.
 - `-v` — Print the version to standard output and exit.
 
-If window IDs are given as arguments, *xqp* won't print anything but will return (via the exit code) whether or not the window under the pointer is in the list of given windows.
+If window IDs are given as arguments, *xqp* won't print anything but will return (via its exit code) whether or not the window under the pointer is in the list of given windows.
