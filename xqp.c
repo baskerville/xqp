@@ -56,6 +56,7 @@ int main(int argc, char *argv[])
 		ret = EXIT_FAILURE;
 	}
 
+	free(qpr);
 	xcb_disconnect(dpy);
 	return ret;
 }
