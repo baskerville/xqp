@@ -7,36 +7,36 @@
 
 int main(int argc, char *argv[])
 {
-    int ret = EXIT_SUCCESS;
-    int opt;
+	int ret = EXIT_SUCCESS;
+	int opt;
 
-    while ((opt = getopt(argc, argv, "hv")) != -1) {
-        switch (opt) {
-            case 'h':
-                printf("xqp [-h|-v] [WID ...]\n");
-                return EXIT_SUCCESS;
-                break;
-            case 'v':
-                printf("%s\n", VERSION);
-                return EXIT_SUCCESS;
-                break;
-        }
-    }
-
-    int num = argc - optind;
-    char **args = argv + optind;
-
-    xcb_connection_t *dpy = xcb_connect(NULL, NULL);
-    if (xcb_connection_has_error(dpy)) {
-        errx(1, "Can't open display.\n");
+	while ((opt = getopt(argc, argv, "hv")) != -1) {
+		switch (opt) {
+			case 'h':
+				printf("xqp [-h|-v] [WID ...]\n");
+				return EXIT_SUCCESS;
+				break;
+			case 'v':
+				printf("%s\n", VERSION);
+				return EXIT_SUCCESS;
+				break;
+		}
 	}
 
-    xcb_screen_t *screen = xcb_setup_roots_iterator(xcb_get_setup(dpy)).data;
-    if (screen == NULL) {
-        errx(1, "Can't acquire screen.\n");
+	int num = argc - optind;
+	char **args = argv + optind;
+
+	xcb_connection_t *dpy = xcb_connect(NULL, NULL);
+	if (xcb_connection_has_error(dpy)) {
+		errx(1, "Can't open display.\n");
 	}
 
-    xcb_window_t root = screen->root;
+	xcb_screen_t *screen = xcb_setup_roots_iterator(xcb_get_setup(dpy)).data;
+	if (screen == NULL) {
+		errx(1, "Can't acquire screen.\n");
+	}
+
+	xcb_window_t root = screen->root;
 	xcb_query_pointer_reply_t *qpr = xcb_query_pointer_reply(dpy, xcb_query_pointer(dpy, root), NULL);
 	
 	if (qpr != NULL) {
@@ -56,6 +56,6 @@ int main(int argc, char *argv[])
 		ret = EXIT_FAILURE;
 	}
 
-    xcb_disconnect(dpy);
-    return ret;
+	xcb_disconnect(dpy);
+	return ret;
 }
